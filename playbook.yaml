@@ -8,7 +8,7 @@
     nextcloud_external_url: "{{ nextcloud_domain }}"
     nextcloud_home: "/nextcloud"  # Update this path
     nextcloud_db_password: "{{ nextcloud_db_password }}"  # Define your DB password
-    nextcloud_admin_user: "{{ nextcloud_admin_user }}"    # Define Nextcloud admin username
+    nextcloud_admin_user: "admin"    # Define Nextcloud admin username
     nextcloud_admin_password: "{{ nextcloud_admin_password }}"  # Define Nextcloud admin password
 
   tasks:
