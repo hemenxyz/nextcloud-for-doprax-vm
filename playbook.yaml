@@ -6,10 +6,13 @@
   vars:
     nextcloud_domain: "{{ nextcloud_domain | default('localhost') }}"
     nextcloud_external_url: "{{ nextcloud_domain }}"
-    nextcloud_home: "/nextcloud"  # Update this path
-    nextcloud_db_password: "{{ nextcloud_db_password }}"  # Define your DB password
-    nextcloud_admin_user: "admin"    # Define Nextcloud admin username
-    nextcloud_admin_password: "{{ nextcloud_admin_password }}"  # Define Nextcloud admin password
+    nextcloud_home: "/nextcloud" 
+    nextcloud_db_password: "{{ nextcloud_db_password }}" 
+    nextcloud_admin_user: "admin"    
+    mysql_root_password: "{{ nextcloud_db_password }}"  
+    mysql_db: "nextcloud"  
+    mysql_user: "nextcloud"  
+    mysql_password: "{{ nextcloud_db_password }}"  
 
   tasks:
     - name: Install general prerequisites
@@ -62,6 +65,28 @@
     - name: Create Nextcloud network
       docker_network:
         name: nextcloud-network
+
+
+    - name: Pull MySQL Docker image
+      docker_image:
+        name: mysql:5.7
+        source: pull
+
+    - name: Create and start MySQL container
+      docker_container:
+        name: mysql
+        image: mysql:5.7
+        state: started
+        restart_policy: always
+        env:
+          MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+          MYSQL_DATABASE: "{{ mysql_db }}"
+          MYSQL_USER: "{{ mysql_user }}"
+          MYSQL_PASSWORD: "{{ mysql_password }}"
+        networks:
+          - name: nextcloud-network
+        volumes:
+          - mysql_data:/var/lib/mysql
 
     - name: Create and start Nextcloud container
       docker_container:
