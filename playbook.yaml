@@ -78,6 +78,7 @@
         image: mysql:5.7
         state: started
         restart_policy: always
+        hostname: mysql
         env:
           MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
           MYSQL_DATABASE: "{{ mysql_db }}"
