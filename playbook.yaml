@@ -103,6 +103,7 @@
           - "{{ nextcloud_home }}/data:/var/www/html/data"
         env:
           MYSQL_PASSWORD: "{{ nextcloud_db_password }}"
+          MYSQL_HOST: mysql
         networks:
           - name: nextcloud-network
 
