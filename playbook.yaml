@@ -84,4 +84,4 @@
 
     - name: Retrieve Nextcloud URL
       debug:
-        msg: "Visit http://{{ nextcloud_external_url }}:80 to access Nextcloud"
+        msg: "Visit http://{{ nextcloud_external_url }} to access Nextcloud"
