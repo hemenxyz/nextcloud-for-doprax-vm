@@ -104,6 +104,8 @@
         env:
           MYSQL_PASSWORD: "{{ nextcloud_db_password }}"
           MYSQL_HOST: mysql
+          MYSQL_DATABASE: "{{mysql_db}}"
+          MYSQL_USER: "{{mysql_user}}"
         networks:
           - name: nextcloud-network
 
